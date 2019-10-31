@@ -162,7 +162,9 @@
     <ClInclude Include="AnimationRenderer.h" />
     <ClInclude Include="BitmapRenderData.h" />
     <ClInclude Include="BitmapRenderer.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandList.h" />
     <ClInclude Include="Component.h" />
@@ -203,7 +205,9 @@
     <ClCompile Include="AnimationRenderer.cpp" />
     <ClCompile Include="BitmapRenderData.cpp" />
     <ClCompile Include="BitmapRenderer.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="CommandList.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Effect.cpp" />
