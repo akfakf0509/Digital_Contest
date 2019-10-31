@@ -136,6 +136,15 @@
     <Filter Include="소스 파일\Game\Objects">
       <UniqueIdentifier>{b0fbdc4e-ae7a-44b1-bc65-06307ca49080}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Game\Scenes\MainScene">
+      <UniqueIdentifier>{6b71d8ce-a09a-459f-a6ed-6c0c44a356bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Element\Component\Components\Collider">
+      <UniqueIdentifier>{eccc9c9b-205e-4c89-9f05-0ea69ad50a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\BoxCollider">
+      <UniqueIdentifier>{3e7f973a-b8f2-4a48-9aa9-2e11285f04a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -253,7 +262,7 @@
       <Filter>소스 파일\Engine\Element\Object\CommandList</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\Game\Scenes\MainScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -370,7 +379,7 @@
       <Filter>소스 파일\Engine\Element\Object\CommandList</Filter>
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Game\Scenes\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
