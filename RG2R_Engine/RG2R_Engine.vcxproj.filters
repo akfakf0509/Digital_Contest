@@ -145,6 +145,9 @@
     <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\BoxCollider">
       <UniqueIdentifier>{3e7f973a-b8f2-4a48-9aa9-2e11285f04a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\CircleCollider">
+      <UniqueIdentifier>{e748a168-bc9c-4d1d-822f-976ff70543a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -264,6 +267,12 @@
     <ClInclude Include="MainScene.h">
       <Filter>소스 파일\Game\Scenes\MainScene</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider\CircleCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RG2R_Engine.rc">
@@ -380,6 +389,12 @@
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>소스 파일\Game\Scenes\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider.cpp">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider\CircleCollider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
