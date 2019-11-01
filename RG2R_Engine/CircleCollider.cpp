@@ -38,4 +38,6 @@ CircleCollider* CircleCollider::SetCircleColliderAnchor(float _x, float _y) {
 
 CircleCollider* CircleCollider::SetRad(float _rad) {
 	rad = _rad;
+
+	return this;
 }

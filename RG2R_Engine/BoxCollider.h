@@ -1,7 +1,7 @@
 #pragma once
-#include "Component.h"
+#include "Collider.h"
 class BoxCollider :
-	public Component
+	public Collider
 {
 private:
 	Vec2F anchor = { 0,0 };
@@ -15,9 +15,9 @@ public:
 	float GetHorSize();
 	float GetVerSize();
 
-	BoxCollider* SetBoxColliderAnchor(Vec2F);
-	BoxCollider* SetBoxColliderAnchor(float, float);
-	BoxCollider* SetHorSize(float);
-	BoxCollider* SetVerSize(float);
+	void SetBoxColliderAnchor(Vec2F);
+	void SetBoxColliderAnchor(float, float);
+	void SetHorSize(float);
+	void SetVerSize(float);
 };
 
