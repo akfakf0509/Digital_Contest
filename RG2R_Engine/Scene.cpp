@@ -33,6 +33,7 @@ void Scene::DestroyObject(Object* obj)
 
 void Scene::Update()
 {
+	FixedUpdate();
 	for (auto iter : objects)
 	{
 		if (iter->GetIsEnable())
@@ -81,6 +82,14 @@ void Scene::Update()
 		}
 	}
 	destroyed.clear();
+}
+
+void Scene::FixedUpdate() {
+	for (auto iter : objects) {
+		if (iter->GetIsEnable()) {
+
+		}
+	}
 }
 
 void Scene::Render()

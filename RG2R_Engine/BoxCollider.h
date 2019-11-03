@@ -11,13 +11,15 @@ public:
 	BoxCollider(float, float);
 	~BoxCollider();
 
+	std::type_index GetID() { return typeid(BoxCollider); }
+
 	Vec2F GetBoxColliderAnchor();
 	float GetHorSize();
 	float GetVerSize();
 
-	void SetBoxColliderAnchor(Vec2F);
-	void SetBoxColliderAnchor(float, float);
-	void SetHorSize(float);
-	void SetVerSize(float);
+	BoxCollider* SetBoxColliderAnchor(Vec2F);
+	BoxCollider* SetBoxColliderAnchor(float, float);
+	BoxCollider* SetHorSize(float);
+	BoxCollider* SetVerSize(float);
 };
 

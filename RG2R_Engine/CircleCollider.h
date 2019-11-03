@@ -1,7 +1,7 @@
 #pragma once
-#include "Component.h"
+#include "Collider.h"
 class CircleCollider :
-	public Component
+	public Collider
 {
 private:
 	Vec2F anchor = { 0,0 };
@@ -10,6 +10,8 @@ public:
 	CircleCollider();
 	CircleCollider(float);
 	~CircleCollider();
+
+	std::type_index GetID() { return typeid(CircleCollider); }
 
 	Vec2F GetCircleColliderAnchor();
 	float GetRad();

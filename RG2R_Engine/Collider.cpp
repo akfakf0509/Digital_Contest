@@ -10,7 +10,3 @@ Collider::Collider()
 Collider::~Collider()
 {
 }
-
-ColliderType Collider::GetColliderType() {
-	return collidertype;
-}

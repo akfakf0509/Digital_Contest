@@ -276,9 +276,6 @@
     <ClInclude Include="Collider.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderType.h">
-      <Filter>소스 파일\Engine\Element\Component\Components\Collider</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RG2R_Engine.rc">
