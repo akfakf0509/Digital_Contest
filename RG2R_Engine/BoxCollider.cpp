@@ -36,12 +36,6 @@ float BoxCollider::GetHeightSize() {
 	return height;
 }
 
-BoxCollider* BoxCollider::SetBoxColliderAnchor(float _x, float _y) {
-	anchor = Vec2F(_x, _y);
-
-	return this;
-}
-
 BoxCollider* BoxCollider::SetWidthSize(float _width) {
 	width = _width;
 
