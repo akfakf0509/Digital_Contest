@@ -136,17 +136,17 @@
     <Filter Include="소스 파일\Game\Objects">
       <UniqueIdentifier>{b0fbdc4e-ae7a-44b1-bc65-06307ca49080}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Game\Scenes\MainScene">
-      <UniqueIdentifier>{6b71d8ce-a09a-459f-a6ed-6c0c44a356bd}</UniqueIdentifier>
+    <Filter Include="소스 파일\Game\Scenes\Mainscene">
+      <UniqueIdentifier>{678d4b5d-bc1b-44ff-8753-534b9bc24cd8}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Engine\Element\Component\Components\Collider">
-      <UniqueIdentifier>{eccc9c9b-205e-4c89-9f05-0ea69ad50a5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\BoxCollider">
-      <UniqueIdentifier>{3e7f973a-b8f2-4a48-9aa9-2e11285f04a0}</UniqueIdentifier>
+      <UniqueIdentifier>{ab1cf1cf-48b5-4092-bcf6-71aba12dfe8b}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\CircleCollider">
-      <UniqueIdentifier>{ac1f843a-7a6a-49f5-9e50-5172c4f237a1}</UniqueIdentifier>
+      <UniqueIdentifier>{78b374e5-478c-4c80-968b-f7ee8ff095c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\BoxCollider">
+      <UniqueIdentifier>{fdf8be6b-3666-479c-9f71-2962db90c248}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -265,16 +265,16 @@
       <Filter>소스 파일\Engine\Element\Object\CommandList</Filter>
     </ClInclude>
     <ClInclude Include="MainScene.h">
-      <Filter>소스 파일\Game\Scenes\MainScene</Filter>
+      <Filter>소스 파일\Game\Scenes\Mainscene</Filter>
     </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
+    <ClInclude Include="Collider.h">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider</Filter>
     </ClInclude>
     <ClInclude Include="CircleCollider.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Collider\CircleCollider</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>소스 파일\Engine\Element\Component\Components\Collider</Filter>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -391,16 +391,16 @@
       <Filter>소스 파일\Engine\Element\Object\CommandList</Filter>
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
-      <Filter>소스 파일\Game\Scenes\MainScene</Filter>
+      <Filter>소스 파일\Game\Scenes\Mainscene</Filter>
     </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
+    <ClCompile Include="Collider.cpp">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider</Filter>
     </ClCompile>
     <ClCompile Include="CircleCollider.cpp">
       <Filter>소스 파일\Engine\Element\Component\Components\Collider\CircleCollider</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>소스 파일\Engine\Element\Component\Components\Collider</Filter>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

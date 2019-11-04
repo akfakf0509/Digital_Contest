@@ -3,6 +3,9 @@
 #include "Settings.h"
 #include "Engine.h"
 #include "ViewRenderData.h"
+#include "BoxCollider.h"
+#include "CircleCollider.h"
+#include "Transform.h"
 
 Scene::Scene()
 {
@@ -26,14 +29,8 @@ Scene::~Scene()
 	delete mainCamera;
 }
 
-void Scene::DestroyObject(Object* obj)
-{
-	destroyed.push_back(obj);
-}
-
 void Scene::Update()
 {
-	FixedUpdate();
 	for (auto iter : objects)
 	{
 		if (iter->GetIsEnable())
@@ -67,27 +64,66 @@ void Scene::Update()
 	{
 		iter->Update();
 	}
-
-	for (auto iter : destroyed)
-	{
-		for (auto iter2 = objects.begin(); iter2 != objects.end(); iter2++)
-		{
-			if (*iter2 == iter)
-			{
-				objects.erase(iter2);
-				delete iter;
-
-				break;
-			}
-		}
-	}
-	destroyed.clear();
 }
 
 void Scene::FixedUpdate() {
-	for (auto iter : objects) {
-		if (iter->GetIsEnable()) {
+	for (auto iter1 : objects) {
+		auto iter1circlecollider = iter1->GetComponent<CircleCollider>();
+		auto iter1boxcollider = iter1->GetComponent<BoxCollider>();
+		if (iter1circlecollider || iter1boxcollider) {
+			for (auto iter2 : objects) {
+				auto iter2circlecollider = iter2->GetComponent<CircleCollider>();
+				auto iter2boxcollider = iter2->GetComponent<BoxCollider>();
+				if (iter1 != iter2 && iter2circlecollider || iter2boxcollider) {
+					if (iter1boxcollider && iter2boxcollider) {
+						bool is_crash = 1;
 
+						Transform *obj1_transform = iter1->GetComponent<Transform>();
+						Transform *obj2_transform = iter2->GetComponent<Transform>();
+
+
+						Vec2F a1(cos(obj1_transform->GetRot()), sin(obj1_transform->GetRot()));
+						Vec2F a2(-sin(obj1_transform->GetRot()), cos(obj1_transform->GetRot()));
+						Vec2F a3(cos(obj2_transform->GetRot()), sin(obj2_transform->GetRot()));
+						Vec2F a4(-sin(obj2_transform->GetRot()), cos(obj2_transform->GetRot()));
+
+						Vec2F l = obj1_transform->GetPos() - obj2_transform->GetPos();
+
+						float r1, r2, r3, r4;
+
+						r1 = 0.25f*fabs(a1.Dot(a1));
+						r2 = 0.25f*fabs(a2.Dot(a1));
+						r3 = 0.25f*fabs(a3.Dot(a1));
+						r4 = 0.25f*fabs(a4.Dot(a1));
+						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a1)))
+							is_crash = 0;
+
+						r1 = 0.25f*fabs(a1.Dot(a2));
+						r2 = 0.25f*fabs(a2.Dot(a2));
+						r3 = 0.25f*fabs(a3.Dot(a2));
+						r4 = 0.25f*fabs(a4.Dot(a2));
+						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a2)))
+							is_crash = 0;
+
+						r1 = 0.25f*fabs(a1.Dot(a3));
+						r2 = 0.25f*fabs(a2.Dot(a3));
+						r3 = 0.25f*fabs(a3.Dot(a3));
+						r4 = 0.25f*fabs(a4.Dot(a3));
+						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a3)))
+							is_crash = 0;
+
+						r1 = 0.25f*fabs(a1.Dot(a4));
+						r2 = 0.25f*fabs(a2.Dot(a4));
+						r3 = 0.25f*fabs(a3.Dot(a4));
+						r4 = 0.25f*fabs(a4.Dot(a4));
+						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a4)))
+							is_crash = 0;
+
+						if (is_crash)
+							printf("crash");
+					}
+				}
+			}
 		}
 	}
 }

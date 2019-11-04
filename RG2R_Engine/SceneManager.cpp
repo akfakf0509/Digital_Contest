@@ -6,8 +6,8 @@
 
 Scene* SceneManager::FirstScene()
 {
-	auto mainscene = new MainScene;
-
+	auto mainscene = new MainScene();
+	
 	return mainscene;
 }
 
