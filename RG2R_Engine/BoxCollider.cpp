@@ -4,13 +4,11 @@
 
 BoxCollider::BoxCollider()
 {
-	anchor = GetOwner()->GetComponent<Transform>()->GetAnchor();
 }
 
-BoxCollider::BoxCollider(float _ver_size, float _hor_size) {
-	anchor = GetOwner()->GetComponent<Transform>()->GetAnchor();
-	ver_size = _ver_size;
-	hor_size = _hor_size;
+BoxCollider::BoxCollider(float _width, float _height) {
+	width = _width;
+	height = _height;
 }
 
 
@@ -18,22 +16,24 @@ BoxCollider::~BoxCollider()
 {
 }
 
-Vec2F BoxCollider::GetBoxColliderAnchor() {
-	return anchor;
+void BoxCollider::Update() {
+
 }
 
-float BoxCollider::GetHorSize() {
-	return hor_size;
+void BoxCollider::Render() {
+
 }
 
-float BoxCollider::GetVerSize() {
-	return ver_size;
+void BoxCollider::Render(ViewRenderData&) {
+
 }
 
-BoxCollider* BoxCollider::SetBoxColliderAnchor(Vec2F _anchor) {
-	anchor = _anchor;
+float BoxCollider::GetWidthSize() {
+	return width;
+}
 
-	return this;
+float BoxCollider::GetHeightSize() {
+	return height;
 }
 
 BoxCollider* BoxCollider::SetBoxColliderAnchor(float _x, float _y) {
@@ -42,14 +42,14 @@ BoxCollider* BoxCollider::SetBoxColliderAnchor(float _x, float _y) {
 	return this;
 }
 
-BoxCollider* BoxCollider::SetHorSize(float _hor_size) {
-	hor_size = _hor_size;
+BoxCollider* BoxCollider::SetWidthSize(float _width) {
+	width = _width;
 
 	return this;
 }
 
-BoxCollider* BoxCollider::SetVerSize(float _ver_size) {
-	ver_size = _ver_size;
+BoxCollider* BoxCollider::SetHeightSize(float _height) {
+	height = _height;
 
 	return this;
 }

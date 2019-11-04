@@ -74,12 +74,15 @@ void Scene::FixedUpdate() {
 			for (auto iter2 : objects) {
 				auto iter2circlecollider = iter2->GetComponent<CircleCollider>();
 				auto iter2boxcollider = iter2->GetComponent<BoxCollider>();
-				if (iter1 != iter2 && iter2circlecollider || iter2boxcollider) {
+				if (iter1 != iter2 && (iter2circlecollider || iter2boxcollider)) {
 					if (iter1boxcollider && iter2boxcollider) {
 						bool is_crash = 1;
 
 						Transform *obj1_transform = iter1->GetComponent<Transform>();
 						Transform *obj2_transform = iter2->GetComponent<Transform>();
+
+						auto obj1_boxcollider = iter1->GetComponent<BoxCollider>();
+						auto obj2_boxcollider = iter2->GetComponent<BoxCollider>();
 
 
 						Vec2F a1(cos(obj1_transform->GetRot()), sin(obj1_transform->GetRot()));
@@ -91,36 +94,44 @@ void Scene::FixedUpdate() {
 
 						float r1, r2, r3, r4;
 
-						r1 = 0.25f*fabs(a1.Dot(a1));
-						r2 = 0.25f*fabs(a2.Dot(a1));
-						r3 = 0.25f*fabs(a3.Dot(a1));
-						r4 = 0.25f*fabs(a4.Dot(a1));
+						r1 = obj1_boxcollider->GetWidthSize() * fabs(a1.Dot(a1));
+						r2 = obj1_boxcollider->GetHeightSize() * fabs(a2.Dot(a1));
+						r3 = obj2_boxcollider->GetWidthSize() * fabs(a3.Dot(a1));
+						r4 = obj2_boxcollider->GetHeightSize() * fabs(a4.Dot(a1));
 						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a1)))
 							is_crash = 0;
 
-						r1 = 0.25f*fabs(a1.Dot(a2));
-						r2 = 0.25f*fabs(a2.Dot(a2));
-						r3 = 0.25f*fabs(a3.Dot(a2));
-						r4 = 0.25f*fabs(a4.Dot(a2));
+						r1 = obj1_boxcollider->GetWidthSize() * fabs(a1.Dot(a2));
+						r2 = obj1_boxcollider->GetHeightSize() * fabs(a2.Dot(a2));
+						r3 = obj2_boxcollider->GetWidthSize() * fabs(a3.Dot(a2));
+						r4 = obj2_boxcollider->GetHeightSize() * fabs(a4.Dot(a2));
 						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a2)))
 							is_crash = 0;
 
-						r1 = 0.25f*fabs(a1.Dot(a3));
-						r2 = 0.25f*fabs(a2.Dot(a3));
-						r3 = 0.25f*fabs(a3.Dot(a3));
-						r4 = 0.25f*fabs(a4.Dot(a3));
+						r1 = obj1_boxcollider->GetWidthSize() * fabs(a1.Dot(a3));
+						r2 = obj1_boxcollider->GetHeightSize() * fabs(a2.Dot(a3));
+						r3 = obj2_boxcollider->GetWidthSize() * fabs(a3.Dot(a3));
+						r4 = obj2_boxcollider->GetHeightSize() * fabs(a4.Dot(a3));
 						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a3)))
 							is_crash = 0;
 
-						r1 = 0.25f*fabs(a1.Dot(a4));
-						r2 = 0.25f*fabs(a2.Dot(a4));
-						r3 = 0.25f*fabs(a3.Dot(a4));
-						r4 = 0.25f*fabs(a4.Dot(a4));
+						r1 = obj1_boxcollider->GetWidthSize() * fabs(a1.Dot(a4));
+						r2 = obj1_boxcollider->GetHeightSize() * fabs(a2.Dot(a4));
+						r3 = obj2_boxcollider->GetWidthSize() * fabs(a3.Dot(a4));
+						r4 = obj2_boxcollider->GetHeightSize() * fabs(a4.Dot(a4));
 						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a4)))
 							is_crash = 0;
 
 						if (is_crash)
 							printf("crash");
+					}
+					else if (iter1circlecollider && iter2boxcollider) {
+
+					}
+					else if (iter1boxcollider && iter2circlecollider) {
+					}
+					else {
+
 					}
 				}
 			}

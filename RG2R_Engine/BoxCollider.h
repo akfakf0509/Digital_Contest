@@ -4,22 +4,22 @@ class BoxCollider :
 	public Collider
 {
 private:
-	Vec2F anchor = { 0,0 };
-	float hor_size = 0, ver_size = 0;
+	float width = 0, height = 0;
 public:
 	BoxCollider();
 	BoxCollider(float, float);
 	~BoxCollider();
 
+	void Update();
+	void Render();
+	void Render(ViewRenderData&);
+
 	std::type_index GetID() { return typeid(BoxCollider); }
 
-	Vec2F GetBoxColliderAnchor();
-	float GetHorSize();
-	float GetVerSize();
+	float GetWidthSize();
+	float GetHeightSize();
 
-	BoxCollider* SetBoxColliderAnchor(Vec2F);
-	BoxCollider* SetBoxColliderAnchor(float, float);
-	BoxCollider* SetHorSize(float);
-	BoxCollider* SetVerSize(float);
+	BoxCollider* SetWidthSize(float);
+	BoxCollider* SetHeightSize(float);
 };
 

@@ -4,19 +4,19 @@ class CircleCollider :
 	public Collider
 {
 private:
-	Vec2F anchor = { 0,0 };
 	float rad = 0;
 public:
 	CircleCollider();
 	CircleCollider(float);
 	~CircleCollider();
 
+	void Update() = 0;
+	void Render() = 0;
+	void Render(ViewRenderData&) = 0;
+
 	std::type_index GetID() { return typeid(CircleCollider); }
 
-	Vec2F GetCircleColliderAnchor();
 	float GetRad();
 
-	CircleCollider* SetCircleColliderAnchor(Vec2F);
-	CircleCollider* SetCircleColliderAnchor(float, float);
 	CircleCollider* SetRad(float);
 };
