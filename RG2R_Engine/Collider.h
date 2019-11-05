@@ -12,5 +12,6 @@ public:
 	virtual void Render(ViewRenderData&) = 0;
 
 	virtual std::type_index GetID() { return typeid(Collider); }
+	static std::type_index GetFamilyID(void) { return typeid(Collider); }
 };
 

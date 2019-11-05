@@ -10,11 +10,12 @@ public:
 	CircleCollider(float);
 	~CircleCollider();
 
-	void Update() = 0;
-	void Render() = 0;
-	void Render(ViewRenderData&) = 0;
+	void Update();
+	void Render();
+	void Render(ViewRenderData&);
 
 	std::type_index GetID() { return typeid(CircleCollider); }
+	static std::type_index GetFamilyID(void) { return typeid(CircleCollider); }
 
 	float GetRad();
 

@@ -15,6 +15,7 @@ public:
 	void Render(ViewRenderData&);
 
 	std::type_index GetID() { return typeid(BoxCollider); }
+	static std::type_index GetFamilyID(void) { return typeid(BoxCollider); }
 
 	float GetWidthSize();
 	float GetHeightSize();

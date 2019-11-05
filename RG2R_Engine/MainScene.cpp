@@ -5,6 +5,7 @@
 #include "SpriteRenderer.h"
 #include "Transform.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 
 
 MainScene::MainScene()
@@ -14,18 +15,20 @@ MainScene::MainScene()
 		->SetAnchor(16, 16);
 	obj1->AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image1.png");
-	obj1->AttachComponent<BoxCollider>()
-		->SetHeightSize(0.25f)
-		->SetWidthSize(0.25f);
+	obj1->AttachComponent<CircleCollider>()
+		->SetRad(0.25f);
+		//->SetHeightSize(0.25f)
+		//->SetWidthSize(0.25f);
 
 	obj2 = CreateObject();
 	obj2->GetComponent<Transform>()
 		->SetAnchor(16, 16);
 	obj2->AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image2.png");
-	obj2->AttachComponent<BoxCollider>()
-		->SetHeightSize(0.25f)
-		->SetWidthSize(0.25f);
+	obj2->AttachComponent<CircleCollider>()
+		->SetRad(0.25f);
+		//->SetHeightSize(0.25f)
+		//->SetWidthSize(0.25f);
 
 	obj1->onUpdateListener = [=]() {
 		Vec2F obj1_pos = obj1->GetComponent<Transform>()->GetPos();

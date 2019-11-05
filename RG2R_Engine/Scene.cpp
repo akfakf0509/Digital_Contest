@@ -75,11 +75,11 @@ void Scene::FixedUpdate() {
 				auto iter2circlecollider = iter2->GetComponent<CircleCollider>();
 				auto iter2boxcollider = iter2->GetComponent<BoxCollider>();
 				if (iter1 != iter2 && (iter2circlecollider || iter2boxcollider)) {
+					Transform *obj1_transform = iter1->GetComponent<Transform>();
+					Transform *obj2_transform = iter2->GetComponent<Transform>();
 					if (iter1boxcollider && iter2boxcollider) {
+						printf("box box\n");
 						bool is_crash = 1;
-
-						Transform *obj1_transform = iter1->GetComponent<Transform>();
-						Transform *obj2_transform = iter2->GetComponent<Transform>();
 
 						auto obj1_boxcollider = iter1->GetComponent<BoxCollider>();
 						auto obj2_boxcollider = iter2->GetComponent<BoxCollider>();
@@ -126,12 +126,18 @@ void Scene::FixedUpdate() {
 							printf("crash");
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
-
+						printf("circle box\n");
 					}
 					else if (iter1boxcollider && iter2circlecollider) {
+						printf("box circle\n");
 					}
 					else {
+						printf("circle circle\n");
+						Vec2F distance = obj1_transform->GetPos() - obj2_transform->GetPos();
 
+						if (iter1circlecollider->GetRad() + iter2circlecollider->GetRad() >= sqrt(pow(distance.x, 2) + pow(distance.y, 2))) {
+							printf("crash");
+						}
 					}
 				}
 			}
