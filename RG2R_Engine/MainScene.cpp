@@ -25,10 +25,9 @@ MainScene::MainScene()
 		->SetAnchor(16, 16);
 	obj2->AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image2.png");
-	obj2->AttachComponent<CircleCollider>()
-		->SetRad(0.25f);
-		//->SetHeightSize(0.25f)
-		//->SetWidthSize(0.25f);
+	obj2->AttachComponent<BoxCollider>()
+		->SetHeightSize(0.25f)
+		->SetWidthSize(0.25f);
 
 	obj1->onUpdateListener = [=]() {
 		Vec2F obj1_pos = obj1->GetComponent<Transform>()->GetPos();

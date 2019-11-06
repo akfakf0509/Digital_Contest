@@ -148,12 +148,12 @@
     <Filter Include="소스 파일\Engine\Element\Component\Components\Collider\BoxCollider">
       <UniqueIdentifier>{fdf8be6b-3666-479c-9f71-2962db90c248}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Engine\Element\Component\Components\Rigidbody">
+      <UniqueIdentifier>{56bb322d-6f33-4576-8985-d1235883f897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -275,6 +275,12 @@
     </ClInclude>
     <ClInclude Include="BoxCollider.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,6 +407,9 @@
     </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
       <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

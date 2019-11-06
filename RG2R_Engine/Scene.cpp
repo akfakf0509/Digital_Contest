@@ -6,6 +6,7 @@
 #include "BoxCollider.h"
 #include "CircleCollider.h"
 #include "Transform.h"
+#include "Rigidbody.h"
 
 Scene::Scene()
 {
@@ -67,11 +68,17 @@ void Scene::Update()
 }
 
 void Scene::FixedUpdate() {
-	for (auto iter1 : objects) {
+	std::vector<Object*>fixed_objects;
+
+	for (auto iter : objects) {
+		if (iter->GetComponent<Rigidbody>())
+			fixed_objects.push_back(iter);
+	}
+	for (auto iter1 : fixed_objects) {
 		auto iter1circlecollider = iter1->GetComponent<CircleCollider>();
 		auto iter1boxcollider = iter1->GetComponent<BoxCollider>();
 		if (iter1->GetIsEnable() && (iter1circlecollider || iter1boxcollider)) {
-			for (auto iter2 : objects) {
+			for (auto iter2 : fixed_objects) {
 				auto iter2circlecollider = iter2->GetComponent<CircleCollider>();
 				auto iter2boxcollider = iter2->GetComponent<BoxCollider>();
 				if (iter2->GetIsEnable() && iter1 != iter2 && (iter2circlecollider || iter2boxcollider)) {
@@ -121,11 +128,30 @@ void Scene::FixedUpdate() {
 							printf("crash");
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
-
+						if ((obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize()) || 
+							(obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize())) {
+							
+							if ((obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() - iter1circlecollider->GetRad() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize() + iter1circlecollider->GetRad()) &&
+								(obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() - iter1circlecollider->GetRad() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize() + iter1circlecollider->GetRad())) {
+								printf("crash1");
+							}
+						}
+						else {
+							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x - iter2boxcollider->GetHeightSize(), 2))) {
+								printf("crash2");
+							}
+							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x - iter2boxcollider->GetHeightSize(), 2))) {
+								printf("crash3");
+							}
+							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x + iter2boxcollider->GetHeightSize(), 2))) {
+								printf("crash4");
+							}
+							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x + iter2boxcollider->GetHeightSize(), 2))) {
+								printf("crash5");
+							}
+						}
 					}
-					else if (iter1boxcollider && iter2circlecollider) {
-					}
-					else {
+					else if (iter1circlecollider && iter2circlecollider) {
 						Vec2F distance = obj1_transform->GetPos() - obj2_transform->GetPos();
 
 						if (iter1circlecollider->GetRad() + iter2circlecollider->GetRad() >= sqrt(pow(distance.x, 2) + pow(distance.y, 2))) {

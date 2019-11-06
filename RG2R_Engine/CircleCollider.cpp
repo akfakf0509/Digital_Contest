@@ -4,7 +4,7 @@
 
 CircleCollider::CircleCollider()
 {
-
+	rad = 0;
 }
 
 CircleCollider::CircleCollider(float _rad) {
