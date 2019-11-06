@@ -276,10 +276,10 @@
     <ClInclude Include="BoxCollider.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Collider\BoxCollider</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody.h">
+    <ClInclude Include="Resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
+    <ClInclude Include="Rigidbody.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
     </ClInclude>
   </ItemGroup>

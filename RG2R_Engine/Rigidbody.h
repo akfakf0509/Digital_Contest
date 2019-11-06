@@ -3,6 +3,9 @@
 class Rigidbody :
 	public Component
 {
+private:
+	Vec2F acceleration = { 0,0 };
+	Vec2F velocity = { 0,0 };
 public:
 	Rigidbody();
 	~Rigidbody();
@@ -13,5 +16,9 @@ public:
 
 	std::type_index GetID(void) { return typeid(Rigidbody); }
 	static std::type_index GetFamilyID(void) { return typeid(Rigidbody); }
+
+	Rigidbody* SetForce(Vec2F);
+
+	Vec2F GetForce();
 };
 
