@@ -15,10 +15,9 @@ MainScene::MainScene()
 		->SetAnchor(16, 16)
 		->SetPos(2, 2);
 	obj1->AttachComponent<SpriteRenderer>()
-		->SetTexture("Resources/Sprites/Image1.png");
-	obj1->AttachComponent<BoxCollider>()
-		->SetHeightSize(0.25f)
-		->SetWidthSize(0.25f);
+		->SetTexture("Resources/Sprites/Image3.png");
+	obj1->AttachComponent<CircleCollider>()
+		->SetRad(0.25f);
 	obj1->AttachComponent<Rigidbody>()
 		->SetForce(Vec2F(-10, -10));
 
@@ -58,7 +57,15 @@ MainScene::MainScene()
 	};
 
 	obj1->onCollisionEnterListener = [=](CollisionInfo *_collisioninfo) {
-		printf("crash");
+		printf("FistCrash\n");
+	};
+
+	obj1->onCollisionStayListener = [=](CollisionInfo *_collsisioninfo){
+		printf("Crash\n");
+	};
+
+	obj1->onCollisionExitListener = [=](CollisionInfo *_collisioninfo) {
+		printf("OutCrash\n");
 	};
 }
 

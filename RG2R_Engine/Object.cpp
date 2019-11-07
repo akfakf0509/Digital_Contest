@@ -291,15 +291,18 @@ void Object::AttachChild(Object* child)
 }
 
 void Object::OnCollisionEnter(CollisionInfo *_collisioninfo) {
-	onCollisionEnterListener(_collisioninfo);
+	if(onCollisionEnterListener != NULL)
+		onCollisionEnterListener(_collisioninfo);
 }
 
 void Object::OnCollisionStay(CollisionInfo *_collisioninfo) {
-	onCollisionStayListener(_collisioninfo);
+	if (onCollisionStayListener != NULL)
+		onCollisionStayListener(_collisioninfo);
 }
 
 void Object::OnCollisionExit(CollisionInfo *_collisioninfo) {
-	onCollisionExitListener(_collisioninfo);
+	if (onCollisionExitListener != NULL)
+		onCollisionExitListener(_collisioninfo);
 }
 
 Object* Object::FindChild(Object* object)

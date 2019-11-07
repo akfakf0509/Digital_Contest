@@ -155,26 +155,63 @@ void Scene::FixedUpdate() {
 
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
-						if ((obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize()) || 
-							(obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize())) {
-							
-							if ((obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() - iter1circlecollider->GetRad() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize() + iter1circlecollider->GetRad()) &&
-								(obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() - iter1circlecollider->GetRad() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize() + iter1circlecollider->GetRad())) {
-								printf("crash1");
+						bool is_crash = false;
+						if (obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize()) {
+							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
+							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
+							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
+								is_crash = true;
+							}
+							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
+								is_crash = true;
+							}
+						}
+						if (obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize()) {
+							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
+							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
+								is_crash = true;
+							}
+							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
+							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
+								is_crash = true;
 							}
 						}
 						else {
-							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x - iter2boxcollider->GetHeightSize(), 2))) {
-								printf("crash2");
+							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
+							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
+							Vec2F line_point3 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+							Vec2F line_point4 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+						}
+
+						if (is_crash) {
+							if (iter1->isFirstCollision) {
+								iter1->OnCollisionEnter(new CollisionInfo{ iter2 });
+								iter1->isFirstCollision = false;
 							}
-							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x - iter2boxcollider->GetHeightSize(), 2))) {
-								printf("crash3");
+							else {
+								iter1->OnCollisionStay(new CollisionInfo{ iter2 });
 							}
-							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x + iter2boxcollider->GetHeightSize(), 2))) {
-								printf("crash4");
+
+							if (iter2->isFirstCollision) {
+								iter2->OnCollisionEnter(new CollisionInfo{ iter1 });
+								iter2->isFirstCollision = false;
 							}
-							if (iter1circlecollider->GetRad() >= sqrt(pow(obj1_transform->GetPos().x - obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize(), 2) + pow(obj1_transform->GetPos().y - obj2_transform->GetPos().x + iter2boxcollider->GetHeightSize(), 2))) {
-								printf("crash5");
+							else {
+								iter2->OnCollisionStay(new CollisionInfo{ iter1 });
+							}
+						}
+						else {
+							if (!iter1->isFirstCollision) {
+								iter1->OnCollisionExit(new CollisionInfo{ iter2 });
+								iter1->isFirstCollision = true;
+							}
+							if (!iter2->isFirstCollision) {
+								iter2->OnCollisionExit(new CollisionInfo{ iter1 });
+								iter2->isFirstCollision = true;
 							}
 						}
 					}
