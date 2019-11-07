@@ -290,6 +290,18 @@ void Object::AttachChild(Object* child)
 	OnAttachChild();
 }
 
+void Object::OnCollisionEnter(CollisionInfo *_collisioninfo) {
+	onCollisionEnterListener(_collisioninfo);
+}
+
+void Object::OnCollisionStay(CollisionInfo *_collisioninfo) {
+	onCollisionStayListener(_collisioninfo);
+}
+
+void Object::OnCollisionExit(CollisionInfo *_collisioninfo) {
+	onCollisionExitListener(_collisioninfo);
+}
+
 Object* Object::FindChild(Object* object)
 {
 	for (auto iter : childs)

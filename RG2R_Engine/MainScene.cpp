@@ -56,6 +56,10 @@ MainScene::MainScene()
 			obj1->GetComponent<Transform>()->Rotate(180 + 90 - 2 * obj1->GetComponent<Transform>()->GetRot());
 		}
 	};
+
+	obj1->onCollisionEnterListener = [=](CollisionInfo *_collisioninfo) {
+		printf("crash");
+	};
 }
 
 

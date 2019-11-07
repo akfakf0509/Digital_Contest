@@ -7,6 +7,7 @@
 #include "CircleCollider.h"
 #include "Transform.h"
 #include "Rigidbody.h"
+#include "CollisionInfo.h"
 
 Scene::Scene()
 {
@@ -124,8 +125,34 @@ void Scene::FixedUpdate() {
 						if (r1 + r2 + r3 + r4 <= fabs(l.Dot(a4)))
 							is_crash = 0;
 
-						if (is_crash)
-							printf("crash");
+						if (is_crash) {
+							if (iter1->isFirstCollision) {
+								iter1->OnCollisionEnter(new CollisionInfo{ iter2 });
+								iter1->isFirstCollision = false;
+							}
+							else {
+								iter1->OnCollisionStay(new CollisionInfo{ iter2 });
+							}
+
+							if (iter2->isFirstCollision) {
+								iter2->OnCollisionEnter(new CollisionInfo{ iter1 });
+								iter2->isFirstCollision = false;
+							}
+							else {
+								iter2->OnCollisionStay(new CollisionInfo{ iter1 });
+							}
+						}
+						else {
+							if (!iter1->isFirstCollision) {
+								iter1->OnCollisionExit(new CollisionInfo{ iter2 });
+								iter1->isFirstCollision = true;
+							}
+							if (!iter2->isFirstCollision) {
+								iter2->OnCollisionExit(new CollisionInfo{ iter1 });
+								iter2->isFirstCollision = true;
+							}
+						}
+
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
 						if ((obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize()) || 

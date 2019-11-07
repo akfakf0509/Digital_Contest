@@ -1,5 +1,5 @@
 #pragma once
 #include "Object.h"
 typedef struct CollisionInfo {
-	Object *
-};
+	Object *object = nullptr;
+}CollisionInfo;
