@@ -282,6 +282,9 @@
     <ClInclude Include="Rigidbody.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionInfo.h">
+      <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RG2R_Engine.rc">
