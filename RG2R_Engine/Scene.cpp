@@ -156,35 +156,16 @@ void Scene::FixedUpdate() {
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
 						bool is_crash = false;
-						if (obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize()) {
-							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
-							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
-							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
-								is_crash = true;
-							}
-							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
-							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
-							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
-								is_crash = true;
-							}
-						}
-						if (obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize()) {
-							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
-							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
-							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
-								is_crash = true;
-							}
-							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
-							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
-							if (iter1circlecollider->GetRad() >= fabs((line_point1.y - line_point2.y) * obj1_transform->GetPos().x + (line_point2.x - line_point1.x) * obj1_transform->GetPos().y + line_point1.x * line_point2.y - line_point1.x * line_point1.y - line_point2.x * line_point1.y) / sqrt(pow(line_point1.y - line_point2.y, 2) + pow(line_point2.y - line_point1.y, 2))) {
-								is_crash = true;
-							}
-						}
-						else {
-							Vec2F line_point1 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
-							Vec2F line_point2 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), iter2boxcollider->GetHeightSize());
-							Vec2F line_point3 = obj2_transform->GetPos() + Vec2F(iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
-							Vec2F line_point4 = obj2_transform->GetPos() + Vec2F(-iter2boxcollider->GetWidthSize(), -iter2boxcollider->GetHeightSize());
+
+						Vec2F a1(cos(obj2_transform->GetRot()), sin(obj2_transform->GetRot()));
+						Vec2F a2(-sin(obj2_transform->GetRot()), cos(obj2_transform->GetRot()));
+
+						Vec2F l = obj1_transform->GetPos() - obj2_transform->GetPos();
+
+						printf("%f %f\n", fabs(l.Dot(a1)), fabs(l.Dot(a2)) );
+						if (iter1circlecollider->GetRad() >= fabs(l.Dot(a1)) - iter2boxcollider->GetWidthSize() &&
+						    iter1circlecollider->GetRad() >= fabs(l.Dot(a2)) - iter2boxcollider->GetHeightSize()) {
+							is_crash = true;
 						}
 
 						if (is_crash) {

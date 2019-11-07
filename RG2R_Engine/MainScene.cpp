@@ -13,17 +13,18 @@ MainScene::MainScene()
 	obj1 = CreateObject();
 	obj1->GetComponent<Transform>()
 		->SetAnchor(16, 16)
-		->SetPos(2, 2);
+		->SetPos(0, 0.5f);
 	obj1->AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image3.png");
 	obj1->AttachComponent<CircleCollider>()
 		->SetRad(0.25f);
-	obj1->AttachComponent<Rigidbody>()
-		->SetForce(Vec2F(-10, -10));
+	obj1->AttachComponent<Rigidbody>();
+		//->SetForce(Vec2F(-10, -10));
 
 	obj2 = CreateObject();
 	obj2->GetComponent<Transform>()
-		->SetAnchor(16, 16);
+		->SetAnchor(16, 16)
+		->Rotate(30);
 	obj2->AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image2.png");
 	obj2->AttachComponent<BoxCollider>()
