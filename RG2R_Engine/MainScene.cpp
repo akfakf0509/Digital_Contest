@@ -13,13 +13,12 @@ MainScene::MainScene()
 	obj1 = CreateObject();
 	obj1->GetComponent<Transform>()
 		->SetAnchor(16, 16)
-		->SetPos(0, 0.5f);
+		->SetPos(1, 1);
 	obj1->AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image3.png");
 	obj1->AttachComponent<CircleCollider>()
 		->SetRad(0.25f);
-	obj1->AttachComponent<Rigidbody>()
-		->SetForce(Vec2F(-10, -10));
+	obj1->AttachComponent<Rigidbody>();
 
 	obj2 = CreateObject();
 	obj2->GetComponent<Transform>()
@@ -58,7 +57,12 @@ MainScene::MainScene()
 	};
 
 	obj1->onCollisionEnterListener = [=](CollisionInfo *_collisioninfo) {
-		printf("FistCrash\n");
+		Vec2F p(1, 1); //= obj1->GetComponent<Rigidbody>()->GetForce();
+		Vec2F n = _collisioninfo->collisionline;
+
+		printf("%f %f %f %f", p.x, p.y, n.x, n.y);
+
+		obj1->GetComponent<Rigidbody>()->SetForce(p + 2 * n * (-p * n));
 	};
 
 	obj1->onCollisionStayListener = [=](CollisionInfo *_collsisioninfo){

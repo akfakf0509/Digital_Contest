@@ -153,7 +153,6 @@ void Scene::FixedUpdate() {
 								iter2->isFirstCollision = true;
 							}
 						}
-
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
 						bool is_crash = true;
@@ -163,36 +162,94 @@ void Scene::FixedUpdate() {
 
 						Vec2F l = obj1_transform->GetPos() - obj2_transform->GetPos();
 
-						if (iter2boxcollider->GetWidthSize() + iter1circlecollider->GetRad() <= fabs(l.Dot(a1)))
-							is_crash = false;
+						if (obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize() <= obj1_transform->GetPos().x && obj1_transform->GetPos().x <= obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize() ||
+							obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize() <= obj1_transform->GetPos().y && obj1_transform->GetPos().y <= obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize()) {
 
-						if (iter2boxcollider->GetHeightSize() + iter1circlecollider->GetRad() <= fabs(l.Dot(a2)))
-							is_crash = false;
-
-						if (is_crash) {
-							if (iter1->isFirstCollision) {
-								iter1->OnCollisionEnter(new CollisionInfo{ iter2 });
-								iter1->isFirstCollision = false;
-							}
-							else {
-								iter1->OnCollisionStay(new CollisionInfo{ iter2 });
+							if (iter2boxcollider->GetWidthSize() + iter1circlecollider->GetRad() <= fabs(l.Dot(a1))) {
+								is_crash = false;
 							}
 
-							if (iter2->isFirstCollision) {
-								iter2->OnCollisionEnter(new CollisionInfo{ iter1 });
-								iter2->isFirstCollision = false;
-							}
-							else {
-								iter2->OnCollisionStay(new CollisionInfo{ iter1 });
+							if (iter2boxcollider->GetHeightSize() + iter1circlecollider->GetRad() <= fabs(l.Dot(a2))) {
+								is_crash = false;
 							}
 						}
 						else {
+							if (obj1_transform->GetPos().x >= obj2_transform->GetPos().x) {
+								if (obj1_transform->GetPos().y >= obj2_transform->GetPos().y) {
+									Vec2F point(obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize(), obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize());
+
+									if (iter1circlecollider->GetRad() < sqrt(pow(point.x - obj1_transform->GetPos().x, 2) + pow(point.y - obj1_transform->GetPos().y, 2))) {
+										is_crash = false;
+									}
+								}
+								else {
+									Vec2F point(obj2_transform->GetPos().x + iter2boxcollider->GetWidthSize(), obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize());
+
+									if (iter1circlecollider->GetRad() < sqrt(pow(point.x - obj1_transform->GetPos().x, 2) + pow(point.y - obj1_transform->GetPos().y, 2))) {
+										is_crash = false;
+									}
+								}
+							}
+							else {
+								if (obj1_transform->GetPos().y >= obj2_transform->GetPos().y) {
+									Vec2F point(obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize(), obj2_transform->GetPos().y + iter2boxcollider->GetHeightSize());
+
+									if (iter1circlecollider->GetRad() < sqrt(pow(point.x - obj1_transform->GetPos().x, 2) + pow(point.y - obj1_transform->GetPos().y, 2))) {
+										is_crash = false;
+									}
+								}
+								else {
+									Vec2F point(obj2_transform->GetPos().x - iter2boxcollider->GetWidthSize(), obj2_transform->GetPos().y - iter2boxcollider->GetHeightSize());
+
+									if (iter1circlecollider->GetRad() < sqrt(pow(point.x - obj1_transform->GetPos().x, 2) + pow(point.y - obj1_transform->GetPos().y, 2))) {
+										is_crash = false;
+									}
+								}
+							}
+						}
+
+						if (is_crash) {
+							Vec2F crashline = obj1_transform->GetPos() - obj2_transform->GetPos();
+
+							if (abs(crashline.x) > abs(crashline.y)) {
+								crashline = a2;
+							}
+							else {
+								crashline = a1;
+							}
+
+							if (iter1->isFirstCollision) {
+								iter1->OnCollisionEnter(new CollisionInfo{ iter2 , crashline });
+								iter1->isFirstCollision = false;
+							}
+							else {
+								iter1->OnCollisionStay(new CollisionInfo{ iter2 , crashline });
+							}
+
+							if (iter2->isFirstCollision) {
+								iter2->OnCollisionEnter(new CollisionInfo{ iter1 , crashline });
+								iter2->isFirstCollision = false;
+							}
+							else {
+								iter2->OnCollisionStay(new CollisionInfo{ iter1 , crashline });
+							}
+						}
+						else {
+							Vec2F crashline = obj1_transform->GetPos() - obj2_transform->GetPos();
+
+							if (abs(crashline.x) > abs(crashline.y)) {
+								crashline = a2;
+							}
+							else {
+								crashline = a1;
+							}
+							
 							if (!iter1->isFirstCollision) {
-								iter1->OnCollisionExit(new CollisionInfo{ iter2 });
+								iter1->OnCollisionExit(new CollisionInfo{ iter2 , crashline });
 								iter1->isFirstCollision = true;
 							}
 							if (!iter2->isFirstCollision) {
-								iter2->OnCollisionExit(new CollisionInfo{ iter1 });
+								iter2->OnCollisionExit(new CollisionInfo{ iter1 , crashline });
 								iter2->isFirstCollision = true;
 							}
 						}
@@ -201,7 +258,35 @@ void Scene::FixedUpdate() {
 						Vec2F distance = obj1_transform->GetPos() - obj2_transform->GetPos();
 
 						if (iter1circlecollider->GetRad() + iter2circlecollider->GetRad() >= sqrt(pow(distance.x, 2) + pow(distance.y, 2))) {
-							printf("crash");
+							Vec2F crashline(0, 0);
+
+							if (iter1->isFirstCollision) {
+								iter1->OnCollisionEnter(new CollisionInfo{ iter2 , crashline});
+								iter1->isFirstCollision = false;
+							}
+							else {
+								iter1->OnCollisionStay(new CollisionInfo{ iter2 , crashline});
+							}
+
+							if (iter2->isFirstCollision) {
+								iter2->OnCollisionEnter(new CollisionInfo{ iter1 , crashline});
+								iter2->isFirstCollision = false;
+							}
+							else {
+								iter2->OnCollisionStay(new CollisionInfo{ iter1 , crashline});
+							}
+						}
+						else {
+							Vec2F crashline(0, 0);
+
+							if (!iter1->isFirstCollision) {
+								iter1->OnCollisionExit(new CollisionInfo{ iter2 , crashline});
+								iter1->isFirstCollision = true;
+							}
+							if (!iter2->isFirstCollision) {
+								iter2->OnCollisionExit(new CollisionInfo{ iter1 , crashline});
+								iter2->isFirstCollision = true;
+							}
 						}
 					}
 				}
