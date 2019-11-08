@@ -10,6 +10,5 @@ public:
 	~Player();
 
 	void OnUpdate();
-	void OnCollisionEnter(CollisionInfo*);
 };
 

@@ -157,6 +157,9 @@
     <Filter Include="소스 파일\Game\Objects\Enemy">
       <UniqueIdentifier>{b42c3380-7187-49f3-abe5-0f754bad8fbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Game\Scenes\Mainmenuscene">
+      <UniqueIdentifier>{0d56d950-25f7-455e-afb3-89e2831d77c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -295,7 +298,10 @@
       <Filter>소스 파일\Game\Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\Game\Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Mainmenuscene.h">
+      <Filter>소스 파일\Game\Scenes\Mainmenuscene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,7 +436,10 @@
       <Filter>소스 파일\Game\Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Game\Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Mainmenuscene.cpp">
+      <Filter>소스 파일\Game\Scenes\Mainmenuscene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

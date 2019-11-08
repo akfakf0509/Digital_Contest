@@ -15,6 +15,8 @@ Enemy::Enemy()
 		->SetWidthSize(0.25f)
 		->SetHeightSize(0.25f);
 	AttachComponent<Rigidbody>();
+
+	SetTag("Enemy");
 }
 
 

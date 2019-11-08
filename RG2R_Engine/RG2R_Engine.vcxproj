@@ -178,6 +178,7 @@
     <ClInclude Include="GraphicManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCode.h" />
+    <ClInclude Include="Mainmenuscene.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Object.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="GraphicManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mainmenuscene.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Object.cpp" />

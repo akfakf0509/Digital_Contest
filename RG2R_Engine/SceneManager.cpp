@@ -2,13 +2,13 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Engine.h"
-#include "MainScene.h"
+#include "MainmenuScene.h"
 
 Scene* SceneManager::FirstScene()
 {
-	auto mainscene = new MainScene();
+	auto mainmenuscene = new Mainmenuscene();
 	
-	return mainscene;
+	return mainmenuscene;
 }
 
 SceneManager::SceneManager()

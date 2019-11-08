@@ -10,8 +10,7 @@
 Player::Player()
 {
 	GetComponent<Transform>()
-		->SetAnchor(16, 16)
-		->SetPos(1, 1);
+		->SetAnchor(16, 16);
 	AttachComponent<SpriteRenderer>()
 		->SetTexture("Resources/Sprites/Image3.png");
 	AttachComponent<CircleCollider>()
@@ -35,13 +34,4 @@ void Player::OnUpdate() {
 
 		GetComponent<Rigidbody>()->AddForce(vec_distance.Normalize() * distance * 10);
 	}
-}
-
-void Player::OnCollisionEnter(CollisionInfo* _collisioninfo) {
-	Vec2F p = GetComponent<Rigidbody>()->GetForce();
-	Vec2F n = _collisioninfo->collisionline;
-
-	GetComponent<Rigidbody>()->SetForce(p + 2 * n * (-p * n));
-
-	_collisioninfo->object->SetIsEnable(false);
 }
