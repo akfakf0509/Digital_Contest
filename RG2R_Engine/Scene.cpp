@@ -97,6 +97,7 @@ void Scene::FixedUpdate() {
 
 						float r1, r2, r3, r4;
 
+						printf("%.2f %.2f %.2f %.2f\n",fabs(l.Dot(a1)), fabs(l.Dot(a2)), fabs(l.Dot(a3)), fabs(l.Dot(a4)));
 						r1 = iter1boxcollider->GetWidthSize() * fabs(a1.Dot(a1));
 						r2 = iter1boxcollider->GetHeightSize() * fabs(a2.Dot(a1));
 						r3 = iter2boxcollider->GetWidthSize() * fabs(a3.Dot(a1));
@@ -155,18 +156,18 @@ void Scene::FixedUpdate() {
 
 					}
 					else if (iter1circlecollider && iter2boxcollider) {
-						bool is_crash = false;
+						bool is_crash = true;
 
 						Vec2F a1(cos(obj2_transform->GetRot()), sin(obj2_transform->GetRot()));
 						Vec2F a2(-sin(obj2_transform->GetRot()), cos(obj2_transform->GetRot()));
 
 						Vec2F l = obj1_transform->GetPos() - obj2_transform->GetPos();
 
-						printf("%f %f\n", fabs(l.Dot(a1)), fabs(l.Dot(a2)) );
-						if (iter1circlecollider->GetRad() >= fabs(l.Dot(a1)) - iter2boxcollider->GetWidthSize() &&
-						    iter1circlecollider->GetRad() >= fabs(l.Dot(a2)) - iter2boxcollider->GetHeightSize()) {
-							is_crash = true;
-						}
+						if (iter2boxcollider->GetWidthSize() + iter1circlecollider->GetRad() <= fabs(l.Dot(a1)))
+							is_crash = false;
+
+						if (iter2boxcollider->GetHeightSize() + iter1circlecollider->GetRad() <= fabs(l.Dot(a2)))
+							is_crash = false;
 
 						if (is_crash) {
 							if (iter1->isFirstCollision) {
