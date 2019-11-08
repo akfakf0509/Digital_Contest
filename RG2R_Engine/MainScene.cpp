@@ -7,71 +7,25 @@
 #include "BoxCollider.h"
 #include "CircleCollider.h"
 #include "Rigidbody.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "RandomGenerator.h"
 
 MainScene::MainScene()
 {
-	obj1 = CreateObject();
-	obj1->GetComponent<Transform>()
-		->SetAnchor(16, 16)
-		->SetPos(1, 1);
-	obj1->AttachComponent<SpriteRenderer>()
-		->SetTexture("Resources/Sprites/Image3.png");
-	obj1->AttachComponent<CircleCollider>()
-		->SetRad(0.25f);
-	obj1->AttachComponent<Rigidbody>();
+	player = new Player;
 
-	obj2 = CreateObject();
-	obj2->GetComponent<Transform>()
-		->SetAnchor(16, 16)
-		->Rotate(0);
-	obj2->AttachComponent<SpriteRenderer>()
-		->SetTexture("Resources/Sprites/Image2.png");
-	obj2->AttachComponent<BoxCollider>()
-		->SetHeightSize(0.25f)
-		->SetWidthSize(0.25f);
-	obj2->AttachComponent<Rigidbody>();
+	AttachObject(player);
 
-	obj1->onUpdateListener = [=]() {
-		Vec2F obj1_pos = obj1->GetComponent<Transform>()->GetPos();
-		int h = 0, w = 0;
-		if (RG2R_InputM->GetKeyState(KeyCode::KEY_UP) == KeyState::KEYSTATE_STAY) 
-			h = 1;
-		else if (RG2R_InputM->GetKeyState(KeyCode::KEY_DOWN) == KeyState::KEYSTATE_STAY) 
-			h = -1;
+	maincamera = GetMainCamera();
 
-		if (RG2R_InputM->GetKeyState(KeyCode::KEY_RIGHT) == KeyState::KEYSTATE_STAY) 
-			w = 1;
-		else if (RG2R_InputM->GetKeyState(KeyCode::KEY_LEFT) == KeyState::KEYSTATE_STAY) 
-			w = -1;
-
-		obj1->GetComponent<Transform>()->SetPos(obj1_pos + Vec2F(w, h) * RG2R_TimeM->GetDeltaTime());
-
-		if (RG2R_InputM->GetKeyState(KeyCode::KEY_Z) == KeyState::KEYSTATE_STAY)
-			obj2->GetComponent<Transform>()->Rotate(1);
-		else if (RG2R_InputM->GetKeyState(KeyCode::KEY_X) == KeyState::KEYSTATE_STAY)
-			obj2->GetComponent<Transform>()->Rotate(-1);
-
-		if (RG2R_InputM->GetMouseState(MouseCode::MOUSE_LBUTTON) == KeyState::KEYSTATE_ENTER) {
-			obj1->GetComponent<Transform>()->Rotate(180 + 90 - 2 * obj1->GetComponent<Transform>()->GetRot());
-		}
-	};
-
-	obj1->onCollisionEnterListener = [=](CollisionInfo *_collisioninfo) {
-		Vec2F p(1, 1); //= obj1->GetComponent<Rigidbody>()->GetForce();
-		Vec2F n = _collisioninfo->collisionline;
-
-		printf("%f %f %f %f", p.x, p.y, n.x, n.y);
-
-		obj1->GetComponent<Rigidbody>()->SetForce(p + 2 * n * (-p * n));
-	};
-
-	obj1->onCollisionStayListener = [=](CollisionInfo *_collsisioninfo){
-		printf("Crash\n");
-	};
-
-	obj1->onCollisionExitListener = [=](CollisionInfo *_collisioninfo) {
-		printf("OutCrash\n");
-	};
+	for (int i = 0; i < 20; i++) {
+		respawn_cool = respawn_cool_const;
+		auto rander = new RandomGenerator();
+		auto enemy = new Enemy;
+		enemy->GetComponent<Transform>()->SetPos(rander->GetInt(player->GetComponent<Transform>()->GetPos().x - 10, player->GetComponent<Transform>()->GetPos().x + 10), rander->GetInt(player->GetComponent<Transform>()->GetPos().y - 10, player->GetComponent<Transform>()->GetPos().y + 10));
+		AttachObject(enemy);
+	}
 }
 
 
@@ -80,5 +34,19 @@ MainScene::~MainScene()
 }
 
 void MainScene::OnUpdate() {
+	respawn_cool -= RG2R_TimeM->GetDeltaTime();
+
+	if (respawn_cool < 0) {
+		respawn_cool = respawn_cool_const;
+		auto rander = new RandomGenerator();
+		auto enemy = new Enemy;
+		enemy->GetComponent<Transform>()->SetPos(rander->GetInt(player->GetComponent<Transform>()->GetPos().x - 10, player->GetComponent<Transform>()->GetPos().x + 10), rander->GetInt(player->GetComponent<Transform>()->GetPos().y - 10, player->GetComponent<Transform>()->GetPos().y + 10));
+		AttachObject(enemy);
+	}
+
+	Vec2F player2camera = player->GetComponent<Transform>()->GetPos() - maincamera->GetPos();
+
+	maincamera->SetPos(maincamera->GetPos() + player2camera * 0.2);
+
 	this->FixedUpdate();
 }

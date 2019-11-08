@@ -97,7 +97,6 @@ void Scene::FixedUpdate() {
 
 						float r1, r2, r3, r4;
 
-						printf("%.2f %.2f %.2f %.2f\n",fabs(l.Dot(a1)), fabs(l.Dot(a2)), fabs(l.Dot(a3)), fabs(l.Dot(a4)));
 						r1 = iter1boxcollider->GetWidthSize() * fabs(a1.Dot(a1));
 						r2 = iter1boxcollider->GetHeightSize() * fabs(a2.Dot(a1));
 						r3 = iter2boxcollider->GetWidthSize() * fabs(a3.Dot(a1));
@@ -212,10 +211,10 @@ void Scene::FixedUpdate() {
 							Vec2F crashline = obj1_transform->GetPos() - obj2_transform->GetPos();
 
 							if (abs(crashline.x) > abs(crashline.y)) {
-								crashline = a2;
+								crashline = a1;
 							}
 							else {
-								crashline = a1;
+								crashline = a2;
 							}
 
 							if (iter1->isFirstCollision) {
@@ -238,10 +237,10 @@ void Scene::FixedUpdate() {
 							Vec2F crashline = obj1_transform->GetPos() - obj2_transform->GetPos();
 
 							if (abs(crashline.x) > abs(crashline.y)) {
-								crashline = a2;
+								crashline = a1;
 							}
 							else {
-								crashline = a1;
+								crashline = a2;
 							}
 							
 							if (!iter1->isFirstCollision) {
@@ -258,14 +257,14 @@ void Scene::FixedUpdate() {
 						Vec2F distance = obj1_transform->GetPos() - obj2_transform->GetPos();
 
 						if (iter1circlecollider->GetRad() + iter2circlecollider->GetRad() >= sqrt(pow(distance.x, 2) + pow(distance.y, 2))) {
-							Vec2F crashline(0, 0);
+							Vec2F crashline = distance.Normalize();
 
 							if (iter1->isFirstCollision) {
-								iter1->OnCollisionEnter(new CollisionInfo{ iter2 , crashline});
+								iter1->OnCollisionEnter(new CollisionInfo{ iter2 , -crashline});
 								iter1->isFirstCollision = false;
 							}
 							else {
-								iter1->OnCollisionStay(new CollisionInfo{ iter2 , crashline});
+								iter1->OnCollisionStay(new CollisionInfo{ iter2 , -crashline});
 							}
 
 							if (iter2->isFirstCollision) {
@@ -280,7 +279,7 @@ void Scene::FixedUpdate() {
 							Vec2F crashline(0, 0);
 
 							if (!iter1->isFirstCollision) {
-								iter1->OnCollisionExit(new CollisionInfo{ iter2 , crashline});
+								iter1->OnCollisionExit(new CollisionInfo{ iter2 , -crashline});
 								iter1->isFirstCollision = true;
 							}
 							if (!iter2->isFirstCollision) {
@@ -557,4 +556,27 @@ std::vector<Camera*> Scene::FindCamerasCondition(std::function<bool(Camera*)> co
 	}
 
 	return foundCameras;
+}
+
+void Scene::SetGameSpeed(float _speed) {
+	for (auto iter : objects) {
+		auto iterrigidbody = iter->GetComponent<Rigidbody>();
+
+		if (iterrigidbody)
+			iterrigidbody->SetCalculationSpeed(_speed);
+	}
+}
+
+float Scene::GetGameSpeed() {
+	float speed = 0;
+
+	for (auto iter : objects) {
+		auto iterrigidbody = iter->GetComponent<Rigidbody>();
+
+		if (iterrigidbody)
+			if (speed < iterrigidbody->GetCalculationSpeed())
+				speed = iterrigidbody->GetCalculationSpeed();
+	}
+
+	return speed;
 }

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define GAME_TITLE "Test Title"
+#define GAME_TITLE "Shoot.it"
 #define BACKGROUND_COLOR 0xff000000
 
 #define WINDOW_DEFAULT_WIDTH 1280

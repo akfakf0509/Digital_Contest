@@ -72,24 +72,12 @@
     <Filter Include="소스 파일\Engine\Element\Component\Components\Transform">
       <UniqueIdentifier>{d22ca49a-74c4-4889-b51d-9302afa650f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Engine\Utils">
-      <UniqueIdentifier>{14f7f4d6-7ee3-497c-91c6-46aca3b099a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Engine\Utils\Math">
-      <UniqueIdentifier>{533f49ff-f1bf-47f5-b141-fcb5d9811741}</UniqueIdentifier>
-    </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Engine\Utils\stdafx">
-      <UniqueIdentifier>{7524ec46-45b8-4e80-b5a1-73123e381f0e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Engine\Element\Component\Components\Effect">
       <UniqueIdentifier>{8121075a-6bc7-470f-a5a2-f7d8a554f940}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Engine\Utils\RandomGenerator">
-      <UniqueIdentifier>{01c01b57-08ee-4283-94e5-c84921ce3eb1}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Engine\Element\Component\Components\Renderer\Renderers\SpriteRenderer">
       <UniqueIdentifier>{58c76d10-8324-4802-ab3e-bd4ebcc8ba50}</UniqueIdentifier>
@@ -150,6 +138,24 @@
     </Filter>
     <Filter Include="소스 파일\Engine\Element\Component\Components\Rigidbody">
       <UniqueIdentifier>{56bb322d-6f33-4576-8985-d1235883f897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\Objects\Player">
+      <UniqueIdentifier>{8b7d91c7-0549-41a2-a84f-e54c93012abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Utils">
+      <UniqueIdentifier>{14f7f4d6-7ee3-497c-91c6-46aca3b099a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Utils\Math">
+      <UniqueIdentifier>{533f49ff-f1bf-47f5-b141-fcb5d9811741}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Utils\stdafx">
+      <UniqueIdentifier>{7524ec46-45b8-4e80-b5a1-73123e381f0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Utils\RandomGenerator">
+      <UniqueIdentifier>{01c01b57-08ee-4283-94e5-c84921ce3eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\Objects\Enemy">
+      <UniqueIdentifier>{b42c3380-7187-49f3-abe5-0f754bad8fbc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +291,12 @@
     <ClInclude Include="CollisionInfo.h">
       <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\Game\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RG2R_Engine.rc">
@@ -413,6 +425,12 @@
     </ClCompile>
     <ClCompile Include="Rigidbody.cpp">
       <Filter>소스 파일\Engine\Element\Component\Components\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\Game\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
