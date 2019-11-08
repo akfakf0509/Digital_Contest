@@ -1,19 +1,20 @@
 #include "stdafx.h"
-#include "Mainmenuscene.h"
+#include "GameOverScene.h"
 #include "SpriteRenderer.h"
 #include "Transform.h"
 #include "BoxCollider.h"
 #include "Rigidbody.h"
-#include "Player.h"
 #include "Engine.h"
-#include "MainScene.h"
+#include "Player.h"
+#include "Mainmenuscene.h"
+#include "TextRenderer.h"
 
-Mainmenuscene::Mainmenuscene()
+GameOverScene::GameOverScene(float _score)
 {
 	background = CreateObject();
 
 	background->AttachComponent<SpriteRenderer>()
-		->SetTexture("Resources/Sprites/Mainmenu.png");
+		->SetTexture("Resources/Sprites/Gameover.png");
 	background->GetComponent<Transform>()
 		->SetAnchor(640, 360)
 		->SetScale(0.5f, 0.5f);
@@ -22,7 +23,7 @@ Mainmenuscene::Mainmenuscene()
 
 	button->GetComponent<Transform>()
 		->SetAnchor(16, 16)
-		->SetPos(0.7f, 1.3f);
+		->SetPos(3.9f, -1.7f);
 	button->AttachComponent<BoxCollider>()
 		->SetWidthSize(0.25f)
 		->SetHeightSize(0.25f);
@@ -32,23 +33,33 @@ Mainmenuscene::Mainmenuscene()
 
 	AttachObject(player);
 
+	score_txt = CreateObject();
+
+	score_txt->AttachComponent<TextRenderer>()
+		->SetText("Score : " + std::to_string(_score))
+		->SetTextColor(Color(1, 1, 1))
+		->SetZ_index(1);
+	score_txt->GetComponent<Transform>()
+		->SetPos(-5, 2.8f)
+		->SetIsRelative(false);
+
 	player->onUpdateListener = [=]() {
 		auto player_transform = player->GetComponent<Transform>();
 		if (player_transform->GetPos().x > 5 || player_transform->GetPos().x < -5 || player_transform->GetPos().y > 3 || player_transform->GetPos().y < -3) {
-			exit(0);
+			player_transform->SetPos(0, 0);
 		}
 	};
 
 	player->onCollisionEnterListener = [=](CollisionInfo* _collision) {
-		RG2R_SceneM->ChangeScene(new MainScene);
+		RG2R_SceneM->ChangeScene(new Mainmenuscene);
 	};
 }
 
 
-Mainmenuscene::~Mainmenuscene()
+GameOverScene::~GameOverScene()
 {
 }
 
-void Mainmenuscene::OnUpdate() {
+void GameOverScene::OnUpdate() {
 	FixedUpdate();
 }

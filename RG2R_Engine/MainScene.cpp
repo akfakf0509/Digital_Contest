@@ -10,13 +10,28 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "RandomGenerator.h"
+#include "GameOverScene.h"
+#include "TextRenderer.h"
 
 MainScene::MainScene()
 {
 	rander = new RandomGenerator();
+
 	player = new Player;
 
+	player->SetLimitPlayerShoot(true);
 	AttachObject(player);
+
+
+	score_txt = CreateObject();
+
+	score_txt->AttachComponent<TextRenderer>()
+		->SetText("Score : " + std::to_string(score))
+		->SetTextColor(Color(1, 1, 1))
+		->SetZ_index(1);
+	score_txt->GetComponent<Transform>()
+		->SetPos(-5,2.8f)
+		->SetIsRelative(false);
 
 	maincamera = GetMainCamera();
 
@@ -27,11 +42,15 @@ MainScene::MainScene()
 	}
 
 	player->onCollisionEnterListener = [=](CollisionInfo* _collisioninfo) {
+		if(!this->game_started)
+			game_started = true;
 		Vec2F p = player->GetComponent<Rigidbody>()->GetForce();
 		Vec2F n = _collisioninfo->collisionline;
 
 		player->GetComponent<Rigidbody>()->SetForce(p + 2 * n * (-p * n));
 		_collisioninfo->object->GetComponent<Transform>()->SetPos(rander->GetInt(player->GetComponent<Transform>()->GetPos().x - 10, player->GetComponent<Transform>()->GetPos().x + 10), rander->GetInt(player->GetComponent<Transform>()->GetPos().y - 10, player->GetComponent<Transform>()->GetPos().y + 10));
+		player->SetPlayerShootLimit(2);
+		score++;
 	};
 }
 
@@ -41,6 +60,12 @@ MainScene::~MainScene()
 }
 
 void MainScene::OnUpdate() {
+	if(game_started){
+		score += RG2R_TimeM->GetDeltaTime();
+
+		score_txt->GetComponent<TextRenderer>()
+			->SetText("Score : " + std::to_string(score));
+	}
 	for (auto iter : this->FindObjectsByTag("Enemy")) {
 		auto iter_transform = iter->GetComponent<Transform>();
 
@@ -68,7 +93,11 @@ void MainScene::OnUpdate() {
 
 	Vec2F player2camera = player->GetComponent<Transform>()->GetPos() - maincamera->GetPos();
 
-	maincamera->SetPos(maincamera->GetPos() + player2camera * 0.2);
+	maincamera->SetPos(maincamera->GetPos() + player2camera * 0.2f);
+	
+	if (game_started && abs(player->GetComponent<Rigidbody>()->GetForce().x) + abs(player->GetComponent<Rigidbody>()->GetForce().y) <= 0.1f) {
+		RG2R_SceneM->ChangeScene(new GameOverScene(score));
+	}
 
 	this->FixedUpdate();
 }

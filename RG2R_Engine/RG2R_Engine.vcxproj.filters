@@ -160,6 +160,9 @@
     <Filter Include="소스 파일\Game\Scenes\Mainmenuscene">
       <UniqueIdentifier>{0d56d950-25f7-455e-afb3-89e2831d77c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Game\Scenes\Gameoverscene">
+      <UniqueIdentifier>{26faa6e0-f99a-447b-9466-2e84acfadbd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -303,6 +306,9 @@
     <ClInclude Include="Mainmenuscene.h">
       <Filter>소스 파일\Game\Scenes\Mainmenuscene</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverScene.h">
+      <Filter>소스 파일\Game\Scenes\Gameoverscene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RG2R_Engine.rc">
@@ -440,6 +446,9 @@
     </ClCompile>
     <ClCompile Include="Mainmenuscene.cpp">
       <Filter>소스 파일\Game\Scenes\Mainmenuscene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverScene.cpp">
+      <Filter>소스 파일\Game\Scenes\Gameoverscene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
