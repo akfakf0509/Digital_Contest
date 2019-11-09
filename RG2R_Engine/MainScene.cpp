@@ -18,8 +18,6 @@ MainScene::MainScene()
 	rander = new RandomGenerator();
 
 	player = new Player;
-
-	player->SetLimitPlayerShoot(true);
 	AttachObject(player);
 
 
@@ -42,8 +40,10 @@ MainScene::MainScene()
 	}
 
 	player->onCollisionEnterListener = [=](CollisionInfo* _collisioninfo) {
-		if(!this->game_started)
+		if(!this->game_started){
 			game_started = true;
+			player->SetLimitPlayerShoot(true);
+		}
 		Vec2F p = player->GetComponent<Rigidbody>()->GetForce();
 		Vec2F n = _collisioninfo->collisionline;
 

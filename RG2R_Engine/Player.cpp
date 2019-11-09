@@ -57,11 +57,12 @@ void Player::OnUpdate() {
 	if (player_shoot_limit > 0 && RG2R_InputM->GetMouseState(MouseCode::MOUSE_LBUTTON) == KeyState::KEYSTATE_EXIT) {
 		Vec2F vec_distance = clicked_point - RG2R_InputM->GetMouseWorldPos();
 		float distance = sqrt(pow(vec_distance.x, 2) + pow(vec_distance.y, 2));
-		if (distance > 100)
-			distance = 100;
-
-		GetComponent<Rigidbody>()->AddForce(vec_distance.Normalize() * distance * 10);
-		player_shoot_limit--;
+		if (distance > 5)
+			distance = 5;
+		if (vec_distance != Vec2F(0, 0)) {
+			GetComponent<Rigidbody>()->AddForce(vec_distance.Normalize() * distance * 10);
+			player_shoot_limit--;
+		}
 	}
 
 	if(!limit_shoot_count)
